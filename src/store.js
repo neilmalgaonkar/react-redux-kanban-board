@@ -15,12 +15,12 @@ const defaultStore = {
         },
         {
             id: 2,
-            text: 'understand react',
+            text: 'understand react, understand react, understand react',
             status: 0
         },
         {
             id: 3,
-            text: 'learn es6',
+            text: 'learn es6, learn es6, learn es6, learn es6, learn es6,learn es6, learn es6, learn es6',
             status: 0
         },
         {

@@ -37,13 +37,22 @@ body {
     .card-stack .card {
         border: .16rem dashed #216ba5;
         padding: .6rem .8rem 0;
-        margin-top: 1rem
+        margin-top: 1rem;
+        cursor: move !important;
     }
 
         .card-stack .card p {
             font-size: .8rem;
             line-height: 1.6rem;
             margin: 0;
+        }
+
+    .card-container.dragging {
+        background-color: #216ba5;
+    }
+
+        .card-container.dragging .card {
+            opacity: 0;
         }
 
     .card-stack .btn-cont {

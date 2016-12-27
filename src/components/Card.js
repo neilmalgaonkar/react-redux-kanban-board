@@ -1,12 +1,17 @@
 import React, { Component, PropTypes } from 'react'
+import { findDOMNode } from 'react-dom'
 import ItemTypes from './../Constants'
 import { DragSource, DropTarget } from 'react-dnd'
 
 const dragSource = {
     beginDrag: function(props, monitor, component) {
+        let dragComponentRect = findDOMNode(component).getBoundingClientRect()
+        let dragComponentHeight = dragComponentRect.bottom - dragComponentRect.top
+
         return {
             task: props.task,
-            index: props.index
+            index: props.index,
+            componentHeight: dragComponentHeight
         }
     },
     endDrag: function(props, monitor, component) {
@@ -20,10 +25,9 @@ const dragSource = {
                 props.reorderCard(dropResult.targetIndex, draggedItem.index)
             }
         }
-
     },
     isDragging: function(props, monitor) {
-        // console.log(monitor)
+        return props.task.id === monitor.getItem().task.id
     }
 }
 
@@ -35,7 +39,31 @@ const dropTarget = {
         }
     },
     hover(props, monitor, component) {
-        // console.log(monitor)
+        let dragItem = monitor.getItem()
+        let dragItemIndex = dragItem.index
+        let dropItemIndex = props.index
+
+        if(dropItemIndex === dragItemIndex) {
+            return
+        }
+
+        let hoverComponent = findDOMNode(component)
+        let hoverComponentRect = hoverComponent.getBoundingClientRect()
+        let dragItemClientOffset = monitor.getClientOffset()
+        let hoverComponentHeight = hoverComponentRect.bottom - hoverComponentRect.top
+        let hoverComponentMiddle = hoverComponentHeight / 2
+        let hoverClientY = dragItemClientOffset.y - hoverComponentRect.top
+
+        if(dragItemIndex < dropItemIndex && hoverClientY < hoverComponentMiddle) {
+            return
+        }
+
+        if(dragItemIndex > dropItemIndex && hoverClientY > hoverComponentMiddle) {
+            return
+        }
+
+        props.reorderCard(dropItemIndex, dragItemIndex)
+        monitor.getItem().index = dropItemIndex
     }
 }
 
@@ -60,13 +88,10 @@ class Card extends Component {
     render() {
         const { connectDragSource, isDragging, connectDropTarget } = this.props
         return connectDropTarget(connectDragSource(
-            <div className="card">
-                <p>{this.props.task.text}</p>
-                {/*<div className="btn-cont">
-                    <button onClick={(e) => this.props.moveCardTo(this.props.index, 0)}>Backlog</button>
-                    <button onClick={(e) => this.props.moveCardTo(this.props.index, 1)}>In-progress</button>
-                    <button onClick={(e) => this.props.moveCardTo(this.props.index, 2)}>Done</button>
-                </div>*/}
+            <div className={`card-container ${(isDragging) ? 'dragging' : ''}`}>
+                <div className="card">
+                    <p>{this.props.task.text}</p>
+                </div>
             </div>
         ))
     }

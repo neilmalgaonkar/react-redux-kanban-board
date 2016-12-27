@@ -15,7 +15,6 @@ export default function tasks(state = [], action) {
             return newState
         case 'REORDER_CARD':
             let movedCard = state[action.currentIndex]
-            let copyState = state.concat()
             return update(state, {
                 $splice: [
                     [action.currentIndex, 1],
