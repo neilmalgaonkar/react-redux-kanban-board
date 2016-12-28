@@ -7,7 +7,8 @@ import * as actions from './../actions/index'
 
 const mapStateToProps = (state) => {
     return {
-        tasks: state.tasks
+        tasks: state.tasks,
+        stacks: state.stacks
     }
 }
 

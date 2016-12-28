@@ -13,3 +13,11 @@ export function reorderCard(newIndex, currentIndex) {
         currentIndex
     }
 }
+
+export function reorderStack(newIndex, currentIndex) {
+    return {
+        type: 'REORDER_STACK',
+        newIndex,
+        currentIndex
+    }
+}

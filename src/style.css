@@ -11,13 +11,24 @@ body {
     border: .2rem dashed #216ba5;
 }
 
-.card-stack {
+.card-stack-container {
     display:  inline-block;
     vertical-align: top;
-    margin-left: -.4rem;
+    // margin-left: -.4rem;
+    margin: 1.5rem;
+}
+
+    .card-stack-container.dragging {
+        background-color: #216ba5;
+    }
+
+        .card-stack-container.dragging .card-stack {
+            opacity: 0
+        }
+
+.card-stack {
     width: 15rem;
     height: 25rem;
-    margin: 1.5rem;
     padding: 0 1.2rem 1.2rem;
     border: .2rem dashed #216ba5;
 }

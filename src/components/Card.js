@@ -31,6 +31,13 @@ const dragSource = {
     }
 }
 
+function collect(connect, monitor) {
+    return {
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
+    }
+}
+
 const dropTarget = {
     drop(props, monitor, component) {
         return {
@@ -70,13 +77,6 @@ const dropTarget = {
 function dropCollect(connect, monitor) {
     return {
         connectDropTarget: connect.dropTarget()
-    }
-}
-
-function collect(connect, monitor) {
-    return {
-        connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging()
     }
 }
 

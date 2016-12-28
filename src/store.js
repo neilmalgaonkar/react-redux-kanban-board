@@ -7,6 +7,23 @@ import rootReducer from './reducers/index'
 // 2 : done
 
 const defaultStore = {
+    stacks: [
+        {
+            "id": 1,
+            "title": "Backlog",
+            "status": 0
+        },
+        {
+            "id": 2,
+            "title": "In-progress",
+            "status": 1
+        },
+        {
+            "id": 3,
+            "title": "Done",
+            "status": 2
+        }
+    ],
     tasks: [
         {
             id: 1,
