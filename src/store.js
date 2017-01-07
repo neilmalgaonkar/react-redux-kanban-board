@@ -9,26 +9,30 @@ import rootReducer from './reducers/index'
 const defaultStore = {
     stacks: [
         {
-            "id": 1,
-            "title": "Backlog",
-            "status": 0
+            id: 1,
+            title: "Backlog",
+            status: 0,
+            locked: true
+
         },
         {
-            "id": 2,
-            "title": "In-progress",
-            "status": 1
+            id: 2,
+            title: "In-progress",
+            status: 1,
+            locked: false
         },
         {
-            "id": 3,
-            "title": "Done",
-            "status": 2
+            id: 3,
+            title: "Done",
+            status: 2,
+            locked: false
         }
     ],
     tasks: [
         {
             id: 1,
             text: 'learn redux',
-            status: 0
+            status: 1
         },
         {
             id: 2,
@@ -38,17 +42,17 @@ const defaultStore = {
         {
             id: 3,
             text: 'learn es6, learn es6, learn es6, learn es6, learn es6,learn es6, learn es6, learn es6',
-            status: 0
+            status: 1
         },
         {
             id: 4,
             text: 'Array operator',
-            status: 0
+            status: 2
         },
         {
             id: 5,
             text: 'Laravel',
-            status: 0
+            status: 2
         }
     ]
 }

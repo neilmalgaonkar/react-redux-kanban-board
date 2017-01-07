@@ -23,9 +23,15 @@ const dropTarget = {
     hover(props, monitor, component) {
         let dragItem = monitor.getItem()
         let containerStatus = props.stack.status
-        if(containerStatus != dragItem.task.status) {
+        if(!props.stack.locked && containerStatus != dragItem.task.status) {
             props.moveCard(dragItem.index, containerStatus)
         }   
+    },
+    canDrop(props, monitor) {
+        if(props.stack.locked) {
+            return false
+        }
+        return true
     }
 }
 
@@ -53,6 +59,13 @@ const stackDragSource = {
     },
     isDragging: function(props, monitor) {
         return props.stack.id == monitor.getItem().stack.id
+    },
+    canDrag: function(props, monitor) {
+        console.log(props.stack)
+        if(props.stack.locked) {
+            return false
+        }
+        return true
     }
 }
 
@@ -125,9 +138,14 @@ class CardStack extends Component {
         const { connectDropTarget, isOver, connectStackDragSource, connectStackDropSource, isStackDragging } = this.props
         return connectStackDropSource(connectStackDragSource(connectDropTarget(
             <div className={`card-stack-container ${(isStackDragging) ? 'dragging' : ''}`}>
-                <div className="card-stack">
-                    <h1 className="stack-header">{this.props.stack.title}</h1>
-                    {this._renderCards()}
+                <div className={`card-stack ${(this.props.stack.locked) ? 'locked' : ''}`}>
+                    <div className="stack-header-cont">
+                        <span className={`material-icons icon-holder-cont lock-icon-holder `}>lock</span>
+                        <h1 className="stack-header">{this.props.stack.title}</h1>
+                    </div>
+                    <div className="card-list-cont">
+                        {this._renderCards()}
+                    </div>
                 </div>
             </div>
         )))

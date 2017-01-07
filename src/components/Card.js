@@ -28,6 +28,12 @@ const dragSource = {
             }
         }
     },
+    canDrag: function(props, monitor) {
+        if(props.stack.locked) {
+            return false
+        }
+        return true
+    },
     isDragging: function(props, monitor) {
         return props.task.id === monitor.getItem().task.id
     }
