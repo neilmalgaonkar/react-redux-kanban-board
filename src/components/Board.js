@@ -12,7 +12,7 @@ class Board extends Component {
         return (
             <div className="main-board">
                 {this.props.stacks.map((stack, index) => {
-                    return <CardStack title={stack.title} key={index} stackIndex={index} stack={stack} status={stack.status} {...this.props}/>
+                    return <CardStack key={index} stackIndex={index} stack={stack} {...this.props}/>
                 })}
             </div>
         )

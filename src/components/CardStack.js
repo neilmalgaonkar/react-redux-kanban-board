@@ -14,7 +14,7 @@ const dropTarget = {
         if(!monitor.didDrop()) {
             return {
                 dropType: 'stack',
-                status: props.status
+                status: props.stack.status
             }
         } else {
             return monitor.getDropResult()
@@ -22,8 +22,7 @@ const dropTarget = {
     },
     hover(props, monitor, component) {
         let dragItem = monitor.getItem()
-        let containerStatus = props.status
-
+        let containerStatus = props.stack.status
         if(containerStatus != dragItem.task.status) {
             props.moveCard(dragItem.index, containerStatus)
         }   
@@ -68,7 +67,7 @@ const stackDropTarget = {
     drop(props, monitor, component) {
         return {
             stackIndex: props.stackIndex,
-            status: props.status
+            status: props.stack.status
         }
     },
     hover(props, monitor, component) {
@@ -113,7 +112,7 @@ class CardStack extends Component {
 
     _renderCards() {
         return this.props.tasks.map((task, index) => {
-            if(task.status == this.props.status)
+            if(task.status == this.props.stack.status)
                 return <Card task={task} key={task.id} index={index} moveCardTo={this.moveCardTo.bind(this)} {...this.props}/>
         })
     }
@@ -127,7 +126,7 @@ class CardStack extends Component {
         return connectStackDropSource(connectStackDragSource(connectDropTarget(
             <div className={`card-stack-container ${(isStackDragging) ? 'dragging' : ''}`}>
                 <div className="card-stack">
-                    <h1 className="stack-header">{this.props.title}</h1>
+                    <h1 className="stack-header">{this.props.stack.title}</h1>
                     {this._renderCards()}
                 </div>
             </div>
