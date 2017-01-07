@@ -17,12 +17,14 @@ const dragSource = {
     endDrag: function(props, monitor, component) {
         let draggedItem = monitor.getItem()
         let dropResult = monitor.getDropResult()
-        if(dropResult.dropType === 'stack') {
-            if(dropResult != null)
-                props.moveCardTo(props.index, dropResult.status)
-        } else {
-            if(dropResult != null) {
-                props.reorderCard(dropResult.targetIndex, draggedItem.index)
+        if(dropResult !== null) {
+            if(dropResult.dropType === 'stack') {
+                if(dropResult != null)
+                    props.moveCardTo(props.index, dropResult.status)
+            } else {
+                if(dropResult != null) {
+                    props.reorderCard(dropResult.targetIndex, draggedItem.index)
+                }
             }
         }
     },

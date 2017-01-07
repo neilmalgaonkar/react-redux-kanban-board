@@ -128,7 +128,7 @@ class CardStack extends Component {
             <div className={`card-stack-container ${(isStackDragging) ? 'dragging' : ''}`}>
                 <div className="card-stack">
                     <h1 className="stack-header">{this.props.title}</h1>
-                    {/*this._renderCards()*/}
+                    {this._renderCards()}
                 </div>
             </div>
         )))
